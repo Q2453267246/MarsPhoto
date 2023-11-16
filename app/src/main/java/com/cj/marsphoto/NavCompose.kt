@@ -1,5 +1,6 @@
 package com.cj.marsphoto
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.navigation.compose.NavHost
@@ -29,8 +30,11 @@ fun NavCompose() {
                 val roverName = backStackEntry.arguments?.getString("roverName") ?: ""
                 ManifestScreen(roverName, actions.navigationToPhotoScreen)
             }
-            composable(Destinations.Photo) {
-                PhotoScreen()
+            composable(Destinations.Photo) { backStackEntry ->
+                val roverName = backStackEntry.arguments?.getString("roverName")
+                val sol = backStackEntry.arguments?.getString("sol")
+                Log.d("TestRovername","$roverName  -- $sol")
+                PhotoScreen(roverName, sol)
             }
         }
     }

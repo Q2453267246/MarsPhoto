@@ -41,5 +41,7 @@ fun ManifestScreen(
             roverName = roverName ?: "",
             onClick = navigationToPhotoScreen
         )
+
+        else -> {}
     }
 }

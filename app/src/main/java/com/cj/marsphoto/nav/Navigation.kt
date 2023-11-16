@@ -1,5 +1,6 @@
 package com.cj.marsphoto.nav
 
+import android.util.Log
 import androidx.navigation.NavController
 
 object Destinations {
@@ -19,6 +20,6 @@ class Action(navController: NavController) {
     }
 
     val navigationToPhotoScreen: (roverName: String, sol: String) -> Unit = { roverName, sol ->
-        navController.navigate("${Destinations.Photo}/$roverName?sol=$sol")
+        navController.navigate("photo/$roverName?sol=$sol")
     }
 }
