@@ -93,6 +93,9 @@ dependencies {
 
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.0-beta01")
 
+    //coil
+    implementation("io.coil-kt:coil-compose:2.2.2")
+
 }
 
 kapt {
