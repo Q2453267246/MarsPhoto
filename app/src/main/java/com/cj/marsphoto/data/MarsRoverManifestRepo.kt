@@ -1,5 +1,6 @@
 package com.cj.marsphoto.data
 
+import android.util.Log
 import com.cj.marsphoto.domain.model.RoverManifestUiState
 import com.cj.marsphoto.domain.model.toUiModel
 import com.cj.marsphoto.service.MarsRoverManifestService
@@ -13,10 +14,10 @@ class MarsRoverManifestRepo @Inject constructor(
 
     fun getMarsRoverManifest(roverName:String): Flow<RoverManifestUiState> = flow {
         try {
-           toUiModel(marsRoverManifestService.getMarsRoverManifest(roverName.lowercase()))
+            val toUiModel = toUiModel(marsRoverManifestService.getMarsRoverManifest(roverName.lowercase()))
+            emit(toUiModel)
         } catch (throwable: Throwable) {
             emit(RoverManifestUiState.Error)
         }
     }
-
 }
