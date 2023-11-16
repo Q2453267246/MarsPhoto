@@ -13,7 +13,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.cj.marsphoto.ui.theme.MarsPhotoTheme
 import com.cj.marsphoto.ui.view.Rover
 import com.cj.marsphoto.ui.view.RoverList
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
