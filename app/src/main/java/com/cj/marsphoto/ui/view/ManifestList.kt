@@ -21,13 +21,19 @@ import com.cj.marsphoto.domain.model.RoverManifestUiModel
 
 @Composable
 fun ManifestList(
-    roverManifestUiModelList: List<RoverManifestUiModel>
+    roverManifestUiModelList: List<RoverManifestUiModel>,
+    roverName: String,
+    onClick: (roverName: String, sol: String) -> Unit
 ) {
     Surface(color = MaterialTheme.colorScheme.background, modifier = Modifier.fillMaxSize()) {
         val listState = rememberLazyListState()
         LazyColumn(state = listState) {
             items(roverManifestUiModelList.size) {
-                Manifest(roverManifestUiModel = roverManifestUiModelList[it])
+                Manifest(
+                    roverManifestUiModel = roverManifestUiModelList[it],
+                    roverName = roverName,
+                    onClick = onClick
+                )
             }
         }
     }
@@ -35,14 +41,16 @@ fun ManifestList(
 
 @Composable
 fun Manifest(
-    roverManifestUiModel: RoverManifestUiModel
+    roverManifestUiModel: RoverManifestUiModel,
+    roverName:String,
+    onClick: (roverName: String, sol: String) -> Unit
 ) {
     Card(
         modifier = Modifier
             .padding(16.dp)
             .fillMaxWidth()
             .clickable {
-
+                onClick.invoke(roverName, roverManifestUiModel.sol)
             }
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
@@ -66,6 +74,10 @@ fun ManifestPreview() {
             sol = "1000",
             earthDate = "2021-01-01",
             photoNumber = "100"
-        )
+        ),
+        "",
+        onClick = { _, _ ->
+
+        }
     )
 }

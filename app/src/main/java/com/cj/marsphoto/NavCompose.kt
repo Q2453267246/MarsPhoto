@@ -9,6 +9,7 @@ import com.cj.marsphoto.nav.Action
 import com.cj.marsphoto.nav.Destinations
 import com.cj.marsphoto.ui.theme.MarsPhotoTheme
 import com.cj.marsphoto.ui.view.ManifestScreen
+import com.cj.marsphoto.ui.view.PhotoScreen
 import com.cj.marsphoto.ui.view.RoverList
 
 @Composable
@@ -26,7 +27,10 @@ fun NavCompose() {
             }
             composable(Destinations.Manifest) { backStackEntry ->
                 val roverName = backStackEntry.arguments?.getString("roverName") ?: ""
-                ManifestScreen(roverName)
+                ManifestScreen(roverName, actions.navigationToPhotoScreen)
+            }
+            composable(Destinations.Photo) {
+                PhotoScreen()
             }
         }
     }
