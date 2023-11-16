@@ -1,6 +1,8 @@
 package com.cj.marsphoto.ui.view
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,6 +14,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -23,7 +26,9 @@ import com.cj.marsphoto.R
 import com.cj.marsphoto.domain.model.roverUiModelList
 
 @Composable
-fun RoverList() {
+fun RoverList(
+    onClick: (roverName: String) -> Unit = {}
+) {
     val listState = rememberLazyListState()
     Surface(color = MaterialTheme.colorScheme.background, modifier = Modifier.fillMaxSize()) {
         LazyColumn(state = listState) {
@@ -32,7 +37,8 @@ fun RoverList() {
                     name = roverUiModelList[it].name,
                     img = roverUiModelList[it].image,
                     loadingDate = roverUiModelList[it].landingDate,
-                    distance = roverUiModelList[it].distance
+                    distance = roverUiModelList[it].distance,
+                    onClick = onClick
                 )
             }
         }
@@ -42,7 +48,7 @@ fun RoverList() {
 @Composable
 @Preview
 fun RoverPreview() {
-    Rover("Cui jie", R.drawable.test_img_1, "2023-11-11", "1000Km")
+    Rover("Cui jie", R.drawable.test_img_1, "2023-11-11", "1000Km") {}
 }
 
 @Composable
@@ -50,14 +56,22 @@ fun Rover(
     name: String,
     img: Int,
     loadingDate: String,
-    distance: String
+    distance: String,
+    onClick: (roverName: String) -> Unit
 ) {
-    Card(modifier = Modifier.padding(16.dp)) {
+    Card(modifier = Modifier
+        .padding(16.dp)
+        .clickable(indication = null, interactionSource = remember {
+            MutableInteractionSource()
+        }) {
+            onClick.invoke(name)
+        }) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(
                 modifier = Modifier.fillMaxWidth(),
                 text = name,
-                fontWeight = FontWeight.Bold, fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+                fontSize = 24.sp,
                 textAlign = TextAlign.Center
             )
             Image(painter = painterResource(id = img), contentDescription = null)
