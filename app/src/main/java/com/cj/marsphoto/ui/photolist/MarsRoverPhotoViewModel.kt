@@ -4,11 +4,12 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cj.marsphoto.data.MarsPhotoRepo
+import com.cj.marsphoto.domain.model.RoverPhotoUiModel
 import com.cj.marsphoto.domain.model.RoverPhotoUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,9 +25,21 @@ class MarsRoverPhotoViewModel @Inject constructor(
     fun getMarsRoverPhoto(roverName: String, sol: String) {
         viewModelScope.launch {
             _roverPhotoUiState.value = RoverPhotoUiState.Loading
-            marsPhotoRepo.gerMarsPhotos(roverName, sol).collect {
+            marsPhotoRepo.getMarsRoverPhoto(roverName, sol).collect {
                 _roverPhotoUiState.value = it
             }
         }
     }
+
+    fun changeSaveStatus(roverPhotoUiModel: RoverPhotoUiModel) {
+        Log.d("TestSavedState","${roverPhotoUiModel.isSaved}")
+        viewModelScope.launch(Dispatchers.IO) {
+            if (!roverPhotoUiModel.isSaved) {
+                marsPhotoRepo.savePhoto(roverPhotoUiModel)
+            } else {
+                marsPhotoRepo.removePhoto(roverPhotoUiModel)
+            }
+        }
+    }
+
 }

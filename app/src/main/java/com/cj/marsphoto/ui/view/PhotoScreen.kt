@@ -28,7 +28,9 @@ fun PhotoScreen(
         RoverPhotoUiState.Error -> Error()
         RoverPhotoUiState.Loading -> Loading()
         is RoverPhotoUiState.Success -> {
-            PhotoList(roverPhotoUiModeList = screenState.roverPhotoUiModelList)
+            PhotoList(roverPhotoUiModeList = screenState.roverPhotoUiModelList) {
+                marsRoverPhotoViewModel.changeSaveStatus(it)
+            }
         }
     }
 }

@@ -64,6 +64,7 @@ dependencies {
     val retrofit_version = "2.9.0"
     val okhttp_version = "4.10.0"
     val dagger_version = "2.44"
+    val room_version = "2.5.1"
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
@@ -95,6 +96,10 @@ dependencies {
 
     //coil
     implementation("io.coil-kt:coil-compose:2.2.2")
+
+    //room
+    kapt("androidx.room:room-compiler:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")
 
 }
 

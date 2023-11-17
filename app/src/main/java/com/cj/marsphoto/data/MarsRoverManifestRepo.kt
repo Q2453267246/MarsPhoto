@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class MarsRoverManifestRepo @Inject constructor(
-    private val marsRoverManifestService: MarsRoverManifestService
+    private val marsRoverManifestService: MarsRoverManifestService,
 ) {
 
     fun getMarsRoverManifest(roverName:String): Flow<RoverManifestUiState> = flow {
